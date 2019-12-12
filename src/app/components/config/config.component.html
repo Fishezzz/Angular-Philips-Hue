@@ -1,9 +1,14 @@
-<p>
-    <button (click)=onClick()>GET</button>
-    <span>{{ lights | json }}</span>
-</p>
-<ul>
-    <li *ngFor="let light of lights">
-        <div>Name: {{ light ? light.name : "" }}</div>
-    </li>
-</ul>
+<div>
+    <button (click)="ShowSomething()">Show something</button>
+    <div *ngIf="lights">
+        <ul>
+            <li *ngFor="let light of lights">
+                <div>Name: {{ light.name ? light.name : "" }}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <span>{{ lightConfig | json }}</span>
+</div>

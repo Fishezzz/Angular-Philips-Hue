@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { LightResponse } from 'src/app/lights';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,9 +19,9 @@ export class ConfigService {
         this.baseUrl = `${this.url}/${this.apikey}`;
     }
 
-    getLightsConfig(): Observable<LightResponse> {
-        // const configUrl = `${this.baseUrl}/lights?name=student&number=500`;
-        const configUrl = './assets/dummy.json';
-        return this.http.get<LightResponse>(configUrl);
+    getLightsConfig(): Observable<any> {
+        // const configUrl = './assets/dummy.json';
+        const configUrl = `${this.baseUrl}/lights`;
+        return this.http.get<any>(configUrl);
     }
 }

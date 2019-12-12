@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ConfigService } from 'src/app/services/config.service';
-import { LightResponse, Light } from 'src/app/lights';
-
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Light } from 'src/app/hue/lights';
 
 @Component({
     selector: 'app-config',
@@ -12,19 +9,34 @@ import { catchError, map, tap } from 'rxjs/operators';
     styleUrls: ['./config.component.css']
 })
 export class ConfigComponent implements OnInit {
-    private lightResponse: LightResponse;
+    private lightConfig: any;
     lights: Light[];
 
-    constructor(private configService: ConfigService) { }
+    constructor(private configService: ConfigService) {
+        this.lightResponseGET();
+    }
 
     ngOnInit() {
     }
 
-    onClick(): void {
+    getLights() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(this.lights = Object.values(this.lightConfig));
+            }, 500);
+        });
+    }
+
+    async lightResponseGET() {
+        console.log("Getting lightResponse...");
         this.configService.getLightsConfig()
-            .subscribe(data => this.lightResponse = data);
-        this.lights[0] = this.lightResponse[1];
-        this.lights[1] = this.lightResponse[2];
-        this.lights[2] = this.lightResponse[3];
+            .subscribe((data) => (this.lightConfig = data));
+        console.log('GET lightResponse: Done!');
+        await this.getLights();
+        console.log("lightResponse to Lights[]: Done!")
+    }
+
+    ShowSomething() {
+        console.log(this.lights);
     }
 }

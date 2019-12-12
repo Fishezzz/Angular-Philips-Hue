@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    testUrl: 'http://localhost:1880/api',
+    testUrl: 'http://localhost:3000/api',
     liveUrl: 'http://10.198.101.11/api',
     apiKey: 'Q6l5oFpCyje1-GPVSjl7KFqz5Adaa7wZnUjssZIc'
 };
