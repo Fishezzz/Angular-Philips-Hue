@@ -39,4 +39,8 @@ export class ConfigComponent implements OnInit {
     ShowSomething() {
         console.log(this.lights);
     }
+
+    switchChange() {
+        console.log('switch changed');
+    }
 }
