@@ -10,9 +10,8 @@
 </div>
 
 <div>
-    <app-switch (change)="switchChange()"></app-switch>
-</div>
-
-<div>
-    <span>{{ lightConfig | json }}</span>
+    <app-switch
+        (change)="switchChange()"
+        value="{{ switchValue }}"
+    ></app-switch>
 </div>
