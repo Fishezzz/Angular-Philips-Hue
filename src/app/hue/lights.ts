@@ -18,3 +18,7 @@ export interface Light {
     swconfigid: string;
     productid: string;
 }
+
+export interface LightList {
+    [id: string]: Light;
+}
