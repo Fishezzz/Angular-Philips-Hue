@@ -21,7 +21,13 @@ export class ConfigService {
         this.baseUrl = `${this.url}/${this.apikey}`;
     }
 
-    getLightsConfig() {
+    InitialGetLightsConfig() {
+        const configUrl = `${this.baseUrl}/lights`;
+        this.http.get(configUrl)
+            .subscribe((res) => (this.lights = Object.values(res)));
+    }
+
+    GetLightsConfig() {
         const configUrl = `${this.baseUrl}/lights`;
         console.log('Getting lightResponse...');
         return this.http.get(configUrl);

@@ -15,3 +15,35 @@
         value="{{ switchValue }}"
     ></app-switch>
 </div>
+
+<div>
+    <button (click)="GetAllLights()">Get All Lights</button>
+    <div *ngIf="testGETAllLights">
+        All Lights: {{ testGETAllLights | json }}
+    </div>
+</div>
+
+<div>
+    <button (click)="GetLight()">Get Light</button>
+    <div *ngIf="testGETLight">Light: {{ testGETLight | json }}</div>
+</div>
+
+<div>
+    <button (click)="PutOnOff()">Change On/Off</button>
+    <div *ngIf="testPUTOnOffResponse">
+        PUT Result: {{ testPUTOnOffResponse | json }}
+    </div>
+
+    <button (click)="GetOnOff()">Get On/Off</button>
+    <div *ngIf="testGETOnOff">GET On/Off: {{ testGETOnOff | json }}</div>
+</div>
+
+<div>
+    <button (click)="PutColor()">Change Color</button>
+    <div *ngIf="testPUTColorResponse">
+        PUT Result: {{ testPUTColorResponse | json }}
+    </div>
+
+    <button (click)="GetColor()">Get Color</button>
+    <div *ngIf="testGETColor">GET Color: {{ testGETColor | json }}</div>
+</div>

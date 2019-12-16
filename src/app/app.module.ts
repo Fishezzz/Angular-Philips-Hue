@@ -7,14 +7,14 @@ import { ConfigService } from './services/config.service';
 import { AppComponent } from './app.component';
 import { ConfigComponent } from './components/config/config.component';
 import { SwitchComponent } from './components/switch/switch.component';
-import { LightsContainerComponent } from './components/lights-container/lights-container.component';
+import { LightComponent } from './components/light/light.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         ConfigComponent,
         SwitchComponent,
-        LightsContainerComponent
+        LightComponent
     ],
     imports: [
         BrowserModule,

@@ -1,4 +1,4 @@
-import { Capabilities } from "./Capabilities";
+import { Capabilities } from './Capabilities';
 import { Config } from './config';
 import { State } from './state';
 import { SwUpdate } from './swupdate';
