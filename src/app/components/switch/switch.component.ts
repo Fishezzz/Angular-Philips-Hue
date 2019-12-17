@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HueService } from 'src/app/services/hue.service';
 
 @Component({
     selector: 'app-switch',
@@ -7,14 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SwitchComponent implements OnInit {
     @Input() value: boolean;
+    @Input() id: number;
 
-    constructor() {
-    }
+    constructor(private hueService: HueService) { }
 
     ngOnInit() {
     }
 
     onChange() {
-        this.value = this.value;
+        this.hueService.UpdateOnOff(this.id, this.value).subscribe();
     }
 }

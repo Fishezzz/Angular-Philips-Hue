@@ -43,32 +43,32 @@ export class ConfigComponent implements OnInit {
     GetAllLights() {
         this.testGETAllLights = null;
         console.log('Getting all lights...');
-        this.hueService.GetAllLights()
-            .subscribe(res => this.testGETAllLights = res);
+        // this.hueService.GetAllLights()
+        //     .subscribe(res => this.testGETAllLights = res);
     }
 
 
     GetLight() {
         this.testGETLight = null;
         console.log('Getting light...');
-        this.hueService.GetLightById(3)
-            .subscribe(res => this.testGETLight = res);
+        // this.hueService.GetLightById(3)
+        //     .subscribe(res => this.testGETLight = res);
     }
 
 
     PutOnOff() {
         this.testPUTOnOffResponse = null;
         console.log('Putting state of light...');
-        this.hueService.ChangeOnOff(5, this.testOnOff)
-            .subscribe(res => this.testPUTOnOffResponse = res);
+        // this.hueService.ChangeOnOff(5, this.testOnOff)
+        //     .subscribe(res => this.testPUTOnOffResponse = res);
         this.testOnOff = !this.testOnOff;
     }
 
     GetOnOff() {
         this.testGETOnOff = null;
         console.log('Getting state of light...');
-        this.hueService.GetLightById(5)
-            .subscribe(res => this.testGETOnOff = (res as Light).state);
+        // this.hueService.GetLightById(5)
+        //     .subscribe(res => this.testGETOnOff = (res as Light).state);
     }
 
 
@@ -79,14 +79,14 @@ export class ConfigComponent implements OnInit {
             Math.floor(Math.random() * 255),
             Math.floor(Math.random() * 255),
             Math.floor(Math.random() * 255));
-        this.hueService.ChangeColor(1, xy)
-            .subscribe(res => this.testPUTColorResponse = res);
+        // this.hueService.ChangeColor(1, xy)
+        //     .subscribe(res => this.testPUTColorResponse = res);
     }
 
     GetColor() {
         this.testGETColor = null;
         console.log('Getting color of light...');
-        this.hueService.GetLightById(1)
-            .subscribe(res => this.testGETColor = (res as Light).state);
+        // this.hueService.GetLightById(1)
+        //     .subscribe(res => this.testGETColor = (res as Light).state);
     }
 }

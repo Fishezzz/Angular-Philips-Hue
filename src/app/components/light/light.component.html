@@ -1,20 +1,7 @@
-<div *ngIf="light">
+<div *ngIf="light && id">
+    <div>{{ id }}: {{ light.name }}</div>
     <div>
-        <label for="red">Red</label>
-        <input type="number" id="red" [(ngModel)]="red" />
-    </div>
-
-    <div>
-        <label for="green">Green</label>
-        <input type="number" id="green" [(ngModel)]="green" />
-    </div>
-
-    <div>
-        <label for="blue">Blue</label>
-        <input type="number" id="blue" [(ngModel)]="blue" />
-    </div>
-
-    <div>
-        <button (click)="OnOffChange()">{{ onOffText }}</button>
+        <app-switch [id]="id" [value]="light.state.on"></app-switch>
+        <app-color-selector></app-color-selector>
     </div>
 </div>

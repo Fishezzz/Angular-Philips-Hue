@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { Light, LightList } from 'src/app/hue/lights';
-import { ConfigService } from 'src/app/services/config.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HueService {
+    private url: string;
+    private apikey: string;
     private baseUrl: string;
-    lights: Light[];
-    lightList: LightList;
 
-    constructor(private http: HttpClient, private configService: ConfigService) {
-        this.baseUrl = configService.baseUrl;
+    constructor(private http: HttpClient) {
+        this.url = environment.testUrl;
+        this.apikey = environment.apiKey;
+        this.baseUrl = `${this.url}/${this.apikey}`;
     }
 
     GetHeaders(): HttpHeaders {
@@ -43,6 +43,13 @@ export class HueService {
         return [x / (x + y + z), y / (x + y + z)];
     }
 
+    UpdateLight(id: number, property: string, value: string): Observable<any> {
+        const configUrl = `${this.baseUrl}/lights/${id}/state`;
+        const payload = JSON.stringify({ property: value });
+        const headers = this.GetHeaders();
+        return this.http.put(configUrl, payload, { headers });
+    }
+
     // GetAllLights(): Observable<LightList> {
     //     const configUrl = `${this.baseUrl}/lights`;
     //     return this.http.get(configUrl).pipe(
@@ -55,17 +62,15 @@ export class HueService {
 
     GetAllLights(): Observable<any> {
         const configUrl = `${this.baseUrl}/lights`;
-
         return this.http.get(configUrl);
     }
 
     GetLightById(id: number): Observable<any> {
         const configUrl = `${this.baseUrl}/lights/${id}`;
-
         return this.http.get(configUrl);
     }
 
-    ChangeOnOff(id: number, state: boolean): Observable<any> {
+    UpdateOnOff(id: number, state: boolean): Observable<any> {
         const configUrl = `${this.baseUrl}/lights/${id}/state`;
         const payload = JSON.stringify({ on: state });
         const headers = this.GetHeaders();
@@ -74,7 +79,7 @@ export class HueService {
         return this.http.put(configUrl, payload, { headers });
     }
 
-    ChangeColor(id: number, xy: number[]): Observable<any> {
+    UpdateColor(id: number, xy: number[]): Observable<any> {
         const configUrl = `${this.baseUrl}/lights/${id}/state`;
         const payload = JSON.stringify({ xy: xy });
         const headers = this.GetHeaders();
@@ -83,24 +88,24 @@ export class HueService {
         return this.http.put(configUrl, payload, { headers });
     }
 
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param error - error
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(result?: T) {
-        return (error: any): Observable<T> => {
-            let errMsg: string;
-            if (error instanceof Response) {
-                const body = error.json() || '';
-                const err = JSON.stringify(body);
-                errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-            } else {
-                errMsg = error.message ? error.message : error.toString();
-            }
-            console.error(errMsg);
-            return of(result as T);
-        };
-    }
+    // /**
+    //  * Handle Http operation that failed.
+    //  * Let the app continue.
+    //  * @param error - error
+    //  * @param result - optional value to return as the observable result
+    //  */
+    // private handleError<T>(result?: T) {
+    //     return (error: any): Observable<T> => {
+    //         let errMsg: string;
+    //         if (error instanceof Response) {
+    //             const body = error.json() || '';
+    //             const err = JSON.stringify(body);
+    //             errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    //         } else {
+    //             errMsg = error.message ? error.message : error.toString();
+    //         }
+    //         console.error(errMsg);
+    //         return of(result as T);
+    //     };
+    // }
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { ColorHueModule } from 'ngx-color/hue';
+
 import { Light } from 'src/app/hue/lights';
 
 @Component({
@@ -7,18 +10,11 @@ import { Light } from 'src/app/hue/lights';
     styleUrls: ['./light.component.css']
 })
 export class LightComponent implements OnInit {
-    @Input() red: number;
-    @Input() green: number;
-    @Input() blue: number;
-    @Output() onOffText: string;
+    @Input() light: Light;
+    @Input() id: number;
 
-    constructor(private light: Light) { }
+    constructor() { }
 
     ngOnInit() {
-    }
-
-    OnOffChange() {
-        this.light.state.on = !this.light.state.on;
-        this.onOffText = this.light.state.on ? 'turn Off' : 'turn On';
     }
 }
