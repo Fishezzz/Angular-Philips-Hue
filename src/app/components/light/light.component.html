@@ -3,8 +3,11 @@
     <div class="sketch-picker">
         <color-sketch
             [color]="color"
-            (onChangeComplete)="changeComplete($event)"
+            (onChangeComplete)="HandleChangeComplete($event)"
         >
         </color-sketch>
+    </div>
+    <div>
+        <app-switch [lightId]="lightId" [value]="light.state.on"></app-switch>
     </div>
 </div>

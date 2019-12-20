@@ -1,6 +1,3 @@
-<div *ngIf="lights">
-    <app-light [lightId]="lightId" [light]="lights[0]"></app-light>
-    <app-switch [lightId]="lightId" [value]="lights[0].state.on"></app-switch>
-    <p>state: {{ lights[0].state.on }}</p>
-    <p>id: {{ lightId }}</p>
+<div *ngFor="let light of lights; let i = index">
+    <app-light [lightId]="i + 1" [light]="lights[i]"></app-light>
 </div>
