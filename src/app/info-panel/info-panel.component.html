@@ -1,0 +1,5 @@
+<div>Info panel: All lights</div>
+<div *ngFor="let light of lights; let i = index">
+    Light {{ i + 1 }} : {{ "{" }} on: {{ light.state.on }}, xy:
+    {{ light.state.xy }} {{ "}" }}
+</div>

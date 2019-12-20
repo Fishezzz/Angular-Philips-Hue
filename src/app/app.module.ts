@@ -8,12 +8,14 @@ import { ColorSketchModule } from 'ngx-color/sketch';
 import { AppComponent } from './app.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { LightComponent } from './components/light/light.component';
+import { InfoPanelComponent } from './info-panel/info-panel.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SwitchComponent,
-        LightComponent
+        LightComponent,
+        InfoPanelComponent
     ],
     imports: [
         BrowserModule,

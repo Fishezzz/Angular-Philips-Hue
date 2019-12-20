@@ -10,12 +10,16 @@ import { HueService } from './services/hue.service';
 export class AppComponent implements OnInit {
     title = 'hue-lampen';
     lights: Light[];
-    lightId = 1;
 
     constructor(private hueService: HueService) { }
 
     ngOnInit() {
         console.log('Getting all lights...');
+        this.hueService.GetAllLights()
+            .subscribe(res => { this.lights = Object.values(res); });
+    }
+
+    Update() {
         this.hueService.GetAllLights()
             .subscribe(res => { this.lights = Object.values(res); });
     }

@@ -1,3 +1,8 @@
+<div>
+    <app-info-panel [lights]="lights"></app-info-panel>
+    <button (click)="Update()">Update</button>
+</div>
+
 <div *ngFor="let light of lights; let i = index">
     <app-light [lightId]="i + 1" [light]="lights[i]"></app-light>
 </div>
