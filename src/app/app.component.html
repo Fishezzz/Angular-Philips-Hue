@@ -1,8 +1,25 @@
-<div>
-    <app-info-panel [lights]="lights"></app-info-panel>
-    <button (click)="Update()">Update</button>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Philips Hue w/ Angularé Merker</h1>
+    </div>
 </div>
 
-<div *ngFor="let light of lights; let i = index">
-    <app-light [lightId]="i + 1" [light]="lights[i]"></app-light>
+<div class="container">
+    <div class="grid">
+        <div class="row">
+            <div class="col">
+                <app-info-panel [lights]="lights"></app-info-panel>
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div
+                *ngFor="let light of lights; let i = index"
+                class="col-xl-3 col-lg-4 col-sm-6"
+            >
+                <app-light [lightId]="i + 1" [light]="lights[i]"></app-light>
+                <br />
+            </div>
+        </div>
+    </div>
 </div>

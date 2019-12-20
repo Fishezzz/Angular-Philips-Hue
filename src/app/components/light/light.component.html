@@ -1,13 +1,18 @@
-<div *ngIf="light && lightId">
-    <div>Light {{ lightId }}: {{ light.name }}</div>
-    <div class="sketch-picker">
-        <color-sketch
-            [color]="color"
-            (onChangeComplete)="HandleChangeComplete($event)"
-        >
-        </color-sketch>
+<div *ngIf="light && lightId" class="card">
+    <div class="card-header bg-primary text-light">
+        Light {{ lightId }}: {{ light.name }}
     </div>
-    <div>
+    <div class="card-body bg-light">
+        <div class="sketch-picker mx-auto">
+            <color-sketch
+                [color]="color"
+                (onChangeComplete)="HandleChangeComplete($event)"
+            >
+            </color-sketch>
+        </div>
+    </div>
+    <div class="card-footer">
+        <span>Enabled:</span>
         <app-switch [lightId]="lightId" [value]="light.state.on"></app-switch>
     </div>
 </div>

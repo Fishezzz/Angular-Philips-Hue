@@ -15,4 +15,9 @@ export class InfoPanelComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    Update() {
+        this.hueService.GetAllLights()
+            .subscribe(res => { this.lights = Object.values(res); });
+    }
 }

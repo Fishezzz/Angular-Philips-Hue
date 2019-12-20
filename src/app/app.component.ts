@@ -19,9 +19,4 @@ export class AppComponent implements OnInit {
         this.hueService.GetAllLights()
             .subscribe(res => { this.lights = Object.values(res); });
     }
-
-    Update() {
-        this.hueService.GetAllLights()
-            .subscribe(res => { this.lights = Object.values(res); });
-    }
 }

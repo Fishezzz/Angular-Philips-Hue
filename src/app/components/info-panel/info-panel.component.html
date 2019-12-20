@@ -1,5 +1,12 @@
-<div>Info panel: All lights</div>
-<div *ngFor="let light of lights; let i = index">
-    Light {{ i + 1 }} : {{ "{" }} on: {{ light.state.on }}, xy:
-    {{ light.state.xy }} {{ "}" }}
+<div class="card">
+    <div class="card-header bg-primary text-light">
+        Info panel: All lights
+    </div>
+    <div class="card-body bg-light">
+        <div *ngFor="let light of lights; let i = index">
+            <b>Light {{ i + 1 }}:</b> {{ "{" }} on: {{ light.state.on }}, xy:
+            {{ light.state.xy }} {{ "}" }}
+        </div>
+    </div>
+    <button (click)="Update()" class="btn btn-success">Update</button>
 </div>
