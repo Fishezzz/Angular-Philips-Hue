@@ -6,9 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ColorSketchModule } from 'ngx-color/sketch';
 
 import { AppComponent } from './app.component';
-import { SwitchComponent } from './components/switch/switch.component';
+import { InfoPanelComponent } from './components/info-panel/info-panel.component';
 import { LightComponent } from './components/light/light.component';
-import { InfoPanelComponent } from './info-panel/info-panel.component';
+import { SwitchComponent } from './components/switch/switch.component';
 
 @NgModule({
     declarations: [

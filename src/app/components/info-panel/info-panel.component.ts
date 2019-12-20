@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { Light } from 'src/app/hue/lights';
 import { HueService } from 'src/app/services/hue.service';
-import { Light } from '../hue/lights';
 
 @Component({
     selector: 'app-info-panel',
