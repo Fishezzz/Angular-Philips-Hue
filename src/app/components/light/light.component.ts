@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ColorHueModule } from 'ngx-color/hue';
+import { ColorEvent, RGB } from 'ngx-color';
 
 import { Light } from 'src/app/hue/lights';
+import { HueService } from 'src/app/services/hue.service';
 
 @Component({
     selector: 'app-light',
@@ -11,10 +12,16 @@ import { Light } from 'src/app/hue/lights';
 })
 export class LightComponent implements OnInit {
     @Input() light: Light;
-    @Input() id: number;
+    @Input() lightId: number;
+    private color: RGB;
 
-    constructor() { }
+    constructor(private hueService: HueService) { }
 
     ngOnInit() {
+        this.color = this.hueService.XYtoRGB(this.light.state.xy);
+    }
+
+    handleChange($event: ColorEvent) {
+        console.log($event.color);
     }
 }

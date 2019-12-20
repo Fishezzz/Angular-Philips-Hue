@@ -1,7 +1,10 @@
-<div *ngIf="light && id">
-    <div>{{ id }}: {{ light.name }}</div>
-    <div>
-        <app-switch [id]="id" [value]="light.state.on"></app-switch>
-        <app-color-selector></app-color-selector>
+<div *ngIf="light && lightId">
+    <div>Light {{ lightId }}: {{ light.name }}</div>
+    <div class="sketch-picker">
+        <color-sketch
+            [color]="color"
+            (onChangeComplete)="changeComplete($event)"
+        >
+        </color-sketch>
     </div>
 </div>

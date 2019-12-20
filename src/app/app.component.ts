@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Light } from './hue/lights';
 import { HueService } from './services/hue.service';
 
@@ -7,15 +7,16 @@ import { HueService } from './services/hue.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'hue-lampen';
     lights: Light[];
+    lightId = 1;
 
     constructor(private hueService: HueService) { }
 
     ngOnInit() {
         console.log('Getting all lights...');
         this.hueService.GetAllLights()
-            .subscribe(res => { this.lights = Object.values(res) });
+            .subscribe(res => { this.lights = Object.values(res); });
     }
 }

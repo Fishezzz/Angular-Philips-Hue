@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { HueService } from 'src/app/services/hue.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { HueService } from 'src/app/services/hue.service';
 })
 export class SwitchComponent implements OnInit {
     @Input() value: boolean;
-    @Input() id: number;
+    @Input() lightId: number;
 
     constructor(private hueService: HueService) { }
 
@@ -16,6 +17,6 @@ export class SwitchComponent implements OnInit {
     }
 
     onChange() {
-        this.hueService.UpdateOnOff(this.id, this.value).subscribe();
+        this.hueService.UpdateOnOff(this.lightId, this.value).subscribe();
     }
 }

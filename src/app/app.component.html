@@ -1,2 +1,6 @@
-<app-light></app-light>
-<app-switch [id]="1" [value]="true"></app-switch>
+<div *ngIf="lights">
+    <app-light [lightId]="lightId" [light]="lights[0]"></app-light>
+    <app-switch [lightId]="lightId" [value]="lights[0].state.on"></app-switch>
+    <p>state: {{ lights[0].state.on }}</p>
+    <p>id: {{ lightId }}</p>
+</div>
