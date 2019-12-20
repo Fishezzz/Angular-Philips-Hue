@@ -5,22 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ColorSketchModule } from 'ngx-color/sketch';
 
-import { ConfigService } from './services/config.service';
 import { AppComponent } from './app.component';
-import { ConfigComponent } from './components/config/config.component';
 import { SwitchComponent } from './components/switch/switch.component';
 import { LightComponent } from './components/light/light.component';
-import { LightContainerComponent } from './light-container/light-container.component';
-import { ColorSelectorComponent } from './color-selector/color-selector.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        ConfigComponent,
         SwitchComponent,
-        LightComponent,
-        LightContainerComponent,
-        ColorSelectorComponent
+        LightComponent
     ],
     imports: [
         BrowserModule,
@@ -28,9 +21,7 @@ import { ColorSelectorComponent } from './color-selector/color-selector.componen
         HttpClientModule,
         FormsModule
     ],
-    providers: [
-        ConfigService
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
