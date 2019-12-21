@@ -216,7 +216,6 @@ export class HueService {
         const configUrl = `${this.baseUrl}/lights/${id}/state`;
         const payload = JSON.stringify({ xy });
         this.httpOptions.headers.append('Content-Length', '' + (payload.length * 2));
-        console.log('test');
 
         return this.http.put(configUrl, payload, this.httpOptions);
     }
