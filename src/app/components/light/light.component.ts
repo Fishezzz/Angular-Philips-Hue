@@ -22,7 +22,6 @@ export class LightComponent implements OnInit {
     }
 
     HandleChangeComplete($event: ColorEvent) {
-        console.log($event.color);
         this.hueService.UpdateColor(this.lightId, this.hueService.RGBtoXY($event.color)).subscribe();
     }
 }
