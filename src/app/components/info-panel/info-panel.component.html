@@ -5,7 +5,7 @@
     <div class="card-body bg-light">
         <div *ngFor="let light of lights; let i = index">
             <b>Light {{ i + 1 }}:</b> {{ "{" }} on: {{ light.state.on }}, xy:
-            {{ light.state.xy }} {{ "}" }}
+            {{ light.state.xy[0] }}, {{ light.state.xy[1] }} {{ "}" }}
         </div>
     </div>
     <button (click)="Update()" class="btn btn-success">Update</button>

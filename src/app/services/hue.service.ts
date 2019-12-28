@@ -1,7 +1,7 @@
 import { Injectable, Type } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { RGB, Color } from 'ngx-color';
+import { Color, RGB, RGBA } from 'ngx-color';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -26,10 +26,24 @@ export class HueService {
 
     /**
      * A function that converts a color from RGB format to XY format.
-     * @param color The `Color` object containing the RGB color.
-     * @returns `number[]` with X and Y components of the XY color.
+     * @param d The `number` to be converted to hex.
+     * @param padding The `number` of leading zeros, if there are any. Default:  2.
+     * @returns `string` with hexadecimal number.
      */
-    RGBtoXY(color: Color): number[];
+    toHex(d: number, padding?: number): string {
+        let hex = d.toString(16).toUpperCase();
+        padding = typeof (padding) === 'undefined' || padding === null ? padding = 2 : padding;
+
+        while (hex.length < padding) {
+            hex = '0' + hex;
+        }
+
+        return hex;
+    }
+
+    RGBtoHex(rgb: RGB): string {
+        return `${this.toHex(rgb.r)}${this.toHex(rgb.g)}${this.toHex(rgb.b)}`;
+    }
 
     /**
      * A function that converts a color from RGB format to XY format.
@@ -39,8 +53,29 @@ export class HueService {
      * @returns `number[]` with X and Y components of the XY color.
      */
     RGBtoXY(red: number, green: number, blue: number): number[];
+    /**
+     * A function that converts a color from RGB format to XY format.
+     * @param rgb The `RGB` object containing the RGB color.
+     * @returns `number[]` with X and Y components of the XY color.
+     */
+    RGBtoXY(rgb: RGB | RGBA | Color): number[];
+    /**
+     * A function that converts a color from RGB format to XY format.
+     * @param rgba The `RGBA` object containing the RGB color.
+     * @returns `number[]` with X and Y components of the XY color.
+     */
+    RGBtoXY(rgba: RGBA): number[];
+    /**
+     * A function that converts a color from RGB format to XY format.
+     * @param color The `Color` object containing the RGB color.
+     * @returns `number[]` with X and Y components of the XY color.
+     */
+    RGBtoXY(color: Color): number[];
+    RGBtoXY(paramOne: number | RGB | RGBA | Color, paramTwo?: number, paramThree?: number): number[] {
+        let rgb: RGB;
+        let rgba: RGBA;
+        let color: Color;
 
-    RGBtoXY(paramOne: Color | number, paramTwo?: number, paramThree?: number): number[] {
         let red: number;
         let green: number;
         let blue: number;
@@ -50,9 +85,22 @@ export class HueService {
             green = paramTwo / 255.0;
             blue = paramThree / 255.0;
         } else if ((typeof paramOne !== 'number') && (typeof paramTwo === 'undefined') && (typeof paramThree === 'undefined')) {
-            red = paramOne.rgb.r / 255.0;
-            green = paramOne.rgb.g / 255.0;
-            blue = paramOne.rgb.b / 255.0;
+            if (typeof paramOne === typeof rgb) {
+                rgb = (paramOne as RGB);
+                red = rgb.r / 255.0;
+                green = rgb.g / 255.0;
+                blue = rgb.b / 255.0;
+            } else if (typeof paramOne === typeof rgba) {
+                rgba = (paramOne as RGBA);
+                red = rgba.r / 255.0;
+                green = rgba.g / 255.0;
+                blue = rgba.b / 255.0;
+            } else if (typeof paramOne === typeof color) {
+                color = (paramOne as Color);
+                red = color.rgb.r;
+                green = color.rgb.g;
+                blue = color.rgb.b;
+            }
         }
 
         const r = red > 0.04045 ? Math.pow(((red + 0.055) / 1.055), 2.4000000953674316) : red / 12.92;
@@ -64,6 +112,7 @@ export class HueService {
         const Z = r * 8.8E-5 + g * 0.07231 + b * 0.986039;
 
         const XY = [X / (X + Y + Z), Y / (X + Y + Z)];
+
 
         // http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
         // http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
@@ -94,7 +143,6 @@ export class HueService {
      * @returns `RGB` Object with r, g and b components of the RGB color.
      */
     XYtoRGB(xy: number[]): RGB;
-
     /**
      * A function that converts a color from XY format to RGB format.
      * @param x The X component of the XY color.
@@ -102,7 +150,6 @@ export class HueService {
      * @returns `RGB` Object with r, g and b components of the RGB color.
      */
     XYtoRGB(x: number, y: number): RGB;
-
     XYtoRGB(paramOne: number[] | number, paramTwo?: number): RGB {
         let x: number;
         let y: number;
@@ -129,7 +176,11 @@ export class HueService {
         const green = g <= 0.0031308 ? 12.92 * g : (1.0 + 0.055) * Math.pow(g, (1.0 / 2.4)) - 0.055;
         const blue = b <= 0.0031308 ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
 
-        const rgb: RGB = { r: red * 255, g: green * 255, b: blue * 255 };
+        const rgb: RGB = {
+            r: (red < 0 ? 0 : Math.round((red > 1 ? 1 : red)) * 255),
+            g: (green < 0 ? 0 : Math.round((green > 1 ? 1 : green)) * 255),
+            b: (blue < 0 ? 0 : Math.round((blue > 1 ? 1 : blue)) * 255)
+        };
 
 
         // http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html
@@ -151,12 +202,39 @@ export class HueService {
         // const blue = (b <= 0.0031308) ? (12.92 * b) : ((1.055 * Math.pow(b, (1.0 / 2.4))) - 0.055);
 
         // const rgb: RGB = {
-        //     r: (red < 0 ? 0 : (red > 1 ? 1 : red)) * 255,
-        //     g: (green < 0 ? 0 : (green > 1 ? 1 : green)) * 255,
-        //     b: (blue < 0 ? 0 : (blue > 1 ? 1 : blue)) * 255
+        //     r: (red < 0 ? 0 : Math.round((red > 1 ? 1 : red)) * 255),
+        //     g: (green < 0 ? 0 : Math.round((green > 1 ? 1 : green)) * 255),
+        //     b: (blue < 0 ? 0 : Math.round((blue > 1 ? 1 : blue)) * 255)
         // };
 
         return rgb;
+    }
+
+    /**
+     * A function that converts a color from XY format to RGBA format.
+     * @param xy Containing the X and Y component of the XY color.
+     * @returns `RGBA` Object with r, g, b and a components of the RGBA color.
+     */
+    XYtoRGBA(xy: number[]): RGBA;
+    /**
+     * A function that converts a color from XY format to RGBA format.
+     * @param x The X component of the XY color.
+     * @param y The Y component of the XY color.
+     * @returns `RGBA` Object with r, g, b and a components of the RGBA color.
+     */
+    XYtoRGBA(x: number, y: number): RGBA;
+    XYtoRGBA(paramOne: number[] | number, paramTwo?: number): RGBA {
+        let rgb: RGB;
+
+        if ((typeof paramOne === 'number') && (typeof paramTwo !== 'undefined')) {
+            rgb = this.XYtoRGB(paramOne, paramTwo);
+        } else if ((typeof paramOne !== 'number') && (typeof paramTwo === 'undefined')) {
+            rgb = this.XYtoRGB(paramOne);
+        }
+
+        const rgba: RGBA = { r: rgb.r, g: rgb.g, b: rgb.b, a: 1 };
+
+        return rgba;
     }
 
     /**

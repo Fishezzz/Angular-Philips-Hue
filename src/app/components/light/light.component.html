@@ -2,7 +2,7 @@
     <div class="card-header bg-primary text-light">
         Light {{ lightId }}: {{ light.name }}
     </div>
-    <div class="card-body bg-light">
+    <div class="card-body" [style.background-color]="newColor.hex">
         <div class="sketch-picker mx-auto">
             <color-sketch
                 [color]="color"

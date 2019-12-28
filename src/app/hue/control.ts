@@ -7,6 +7,6 @@ export interface Control {
     mindimlevel: number;
     maxlumen: number;
     colorgamuttype: string;
-    colorgamut: [number[]];
+    colorgamut: number[][];
     ct: CT;
 }

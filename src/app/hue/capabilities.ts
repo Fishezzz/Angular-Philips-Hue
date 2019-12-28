@@ -6,7 +6,7 @@ export interface Streaming {
 }
 
 export interface Capabilities {
-    certifies: boolean;
+    certified: boolean;
     control: Control;
     streaming: Streaming;
 }
